@@ -3,8 +3,7 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Button } from "react-bootstrap";
-import { Link } from 'react-router-dom'
-
+import { Link } from "react-router-dom";
 
 import mbLogo from "../../assets/images/mb-logo.svg";
 import { LoginPage } from "./styles";
@@ -51,7 +50,9 @@ export function Login() {
   return (
     <LoginPage>
       <aside>
-        <img src={mbLogo} alt="Ilustração simbolizando perguntas e respostas" />
+        <Link to="/">
+          <img src={mbLogo} alt="Ilustração simbolizando perguntas e respostas" />
+        </Link>
         <strong>MB ingressos</strong>
         <p>A plataforma de ingressos online</p>
       </aside>
@@ -63,7 +64,9 @@ export function Login() {
             <input type="password" placeholder="Digite sua senha" onChange={(event) => setPassword(event.target.value)} />
             <Button type="submit">Entrar</Button>
           </form>
-          <small>ou <Link to='/cadastro'>crie sua conta</Link></small>
+          <small>
+            ou <Link to="/cadastro">crie sua conta</Link>
+          </small>
         </div>
       </main>
     </LoginPage>
