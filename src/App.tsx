@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GlobalStyle } from "./styles/global";
 
 import { Tickets } from "./pages/Tickets";
+import { Register } from "./pages/Register";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <GlobalStyle/>
       <Routes>
         <Route path="/" element={<Tickets />} />
+        <Route path="/cadastro" element={<Register />} />
         <Route path="*" element={<Tickets />} />
       </Routes>
     </BrowserRouter>
