@@ -3,12 +3,14 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Button } from "react-bootstrap";
+import { Link } from 'react-router-dom'
+
 
 import mbLogo from "../../assets/images/mb-logo.svg";
 import { LoginPage } from "./styles";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../services/firebase";
+import { auth } from "../../services/firebase";
 
 type userType = {
   uid: string;
@@ -61,6 +63,7 @@ export function Login() {
             <input type="password" placeholder="Digite sua senha" onChange={(event) => setPassword(event.target.value)} />
             <Button type="submit">Entrar</Button>
           </form>
+          <small>ou <Link to='/cadastro'>crie sua conta</Link></small>
         </div>
       </main>
     </LoginPage>

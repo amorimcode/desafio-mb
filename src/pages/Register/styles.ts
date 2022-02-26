@@ -87,6 +87,10 @@ export const RegisterPage = styled.main`
         margin-top: 20px;
       }
     }
+    small {
+      margin-top: 10px;
+      color: #a8a8b3;
+    }
   }
   p {
     font-size: 14px;
@@ -95,7 +99,7 @@ export const RegisterPage = styled.main`
   }
 
   a {
-    color: #e559f9;
+    color: ${colors.primary};
   }
 
   .create-account {

@@ -1,9 +1,9 @@
 import { FormEvent, useState } from "react";
 
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import mbLogo from "../../assets/images/mb-logo.svg";
-import googleiconImg from "../../assets/images/google-icon.svg";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -25,17 +25,16 @@ export function Register() {
       if (userData) {
         const docRef = await addDoc(collection(db, "users"), {
           uid: userData.user.uid,
-          email: email
+          email: email,
         });
       }
-      
-      alert('Usuário criado com sucesso')
-    } catch (error: any) {
-      if (error.code === 'auth/email-already-in-use') {
-       alert('Esse e-mail já está em uso por outro usuário')
-     }
-    }
 
+      alert("Usuário criado com sucesso");
+    } catch (error: any) {
+      if (error.code === "auth/email-already-in-use") {
+        alert("Esse e-mail já está em uso por outro usuário");
+      }
+    }
   }
 
   return (
@@ -47,16 +46,15 @@ export function Register() {
       </aside>
       <main>
         <div className="main-content">
-          {/* <button className="create-account">
-            <img src={googleiconImg} alt="Logo do Google" />
-            Crie sua sala com o Google
-          </button> */}
           <div className="separator">Cadastre-se com email e senha</div>
           <form onSubmit={handleCreateAccount}>
             <input type="email" placeholder="Digite seu e-mail" onChange={(event) => setEmail(event.target.value)} />
             <input type="password" placeholder="Digite sua senha" onChange={(event) => setPassword(event.target.value)} />
             <Button type="submit">Criar conta</Button>
           </form>
+          <small>
+            ou <Link to="/entrar">entre na sua conta</Link>
+          </small>
         </div>
       </main>
     </RegisterPage>
