@@ -1,5 +1,7 @@
 import { FormEvent, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import { Button } from "react-bootstrap";
 
 import mbLogo from "../../assets/images/mb-logo.svg";
@@ -7,7 +9,6 @@ import { LoginPage } from "./styles";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../services/firebase";
-import { addDoc, collection } from "firebase/firestore";
 
 type userType = {
   uid: string;
@@ -17,6 +18,8 @@ export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState<userType>();
+
+  const navigate = useNavigate();
 
   async function handleLogin(event: FormEvent) {
     event.preventDefault();
@@ -29,6 +32,7 @@ export function Login() {
       });
 
       alert("Login feito com sucesso");
+      navigate("/");
 
       console.log("user: ", user);
     } catch (error: any) {
