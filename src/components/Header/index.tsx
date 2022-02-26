@@ -11,11 +11,21 @@ export function Header() {
         <ul className="links">
           <li className="link-item">
             <div className="dropdown">
-              <i className="fas fa-user dropdown-toggle" aria-labelledby="dropdownMenuLink" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></i>
-              <ul className="dropdown-menu" >
+              <i
+                className="fas fa-user dropdown-toggle"
+                aria-labelledby="dropdownMenuLink"
+                id="dropdownMenuLink"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"></i>
+              <ul className="dropdown-menu">
                 <li>
                   <Link className="dropdown-item" to="/cadastro">
                     Cadastro
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/entrar">
+                    Entrar
                   </Link>
                 </li>
               </ul>

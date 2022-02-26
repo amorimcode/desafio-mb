@@ -13,7 +13,7 @@ type CardProps = {
 export function Card(props: CardProps) {
   return (
     <CardWrapper className="card mb-4 shadow-sm">
-      <img className="card-img-top" src={defaultImg} alt="Card image cap" />
+      <img className="card-img-top" src={defaultImg} />
       <div className="card-body">
         <h5 className="card-title text-center">{props.title}</h5>
         <p className="card-text">{props.children}</p>
