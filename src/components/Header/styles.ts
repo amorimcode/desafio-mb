@@ -26,6 +26,7 @@ export const HeaderWrapper = styled.header`
       display: flex;
       flex-direction: row;
       .link-item {
+        margin-left: 15px;
         text-decoration: none;
         color: ${colors.secondary};
         font-family: Inter;
@@ -35,6 +36,15 @@ export const HeaderWrapper = styled.header`
         position: relative;
         cursor: pointer;
       }
+      .link-user {
+        text-decoration: none;
+        color: ${colors.secondary};
+        font-family: Inter;
+        font-weight: 500;
+        display: inline-block;
+        position: relative;
+      }
+
       .link-item:after {
         content: "";
         position: absolute;

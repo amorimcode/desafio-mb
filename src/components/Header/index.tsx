@@ -1,14 +1,30 @@
+import { useEffect } from "react";
+
 import { HeaderWrapper } from "../../components/Header/styles";
 
 import mbLogo from "../../assets/images/mb-logo.svg";
 import { Link } from "react-router-dom";
 
+import { auth } from "../../services/firebase";
+import { useAuth } from "../../hooks/useAuth";
+
+
 export function Header() {
+  const { user, setUser } = useAuth();
+
+  async function handleSignOut() {
+    await auth.signOut().then(() => {
+      alert("Usuário desconectado");
+    });
+    setUser({})
+  }
+  
   return (
     <HeaderWrapper>
       <div className="content">
         <img src={mbLogo} alt="Logo Mb-labs" />
         <ul className="links">
+          {user ? <li className="link-user">{user.email}</li> : ""}
           <li className="link-item">
             <div className="dropdown">
               <i
@@ -27,6 +43,11 @@ export function Header() {
                   <Link className="dropdown-item" to="/entrar">
                     Entrar
                   </Link>
+                </li>
+                <li>
+                  <button onClick={handleSignOut} className="dropdown-item">
+                    Sair
+                  </button>
                 </li>
               </ul>
             </div>
