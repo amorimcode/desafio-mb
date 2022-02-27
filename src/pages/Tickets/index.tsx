@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 import { Header } from "../../components/Header";
 import { Card } from "../../components/Cards";
+import { Loading } from "../../components/Loading";
 
 import { TicketsPage } from "./styles";
 import { Container } from "react-bootstrap";
@@ -22,8 +23,8 @@ const breakpoints = {
 };
 
 export function Tickets() {
-  const { user, setUser } = useAuth();
-  const { tickets , setTickets } = useTickets();
+  const { setUser } = useAuth();
+  const { tickets, setTickets, loading } = useTickets();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -34,7 +35,6 @@ export function Tickets() {
         });
       }
     });
-    
   }, []);
 
   return (
@@ -43,14 +43,17 @@ export function Tickets() {
       <TicketsPage>
         <Container>
           <br />
-          <Masonry breakpointCols={breakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
-            {tickets?.map((ticket: TicketsType) => (
-              <Card
-                title={ticket.title}
-                price={ticket.price}
-              >{ticket.description}</Card>
-            ))}
-          </Masonry>
+          {loading ? (
+            <Loading />
+          ) : (
+            <Masonry breakpointCols={breakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
+              {tickets?.map((ticket: TicketsType) => (
+                <Card title={ticket.title} price={ticket.price}>
+                  {ticket.description}
+                </Card>
+              ))}
+            </Masonry>
+          )}
         </Container>
       </TicketsPage>
     </>

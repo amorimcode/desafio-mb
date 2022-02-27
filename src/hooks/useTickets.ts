@@ -6,6 +6,7 @@ import { db } from "../services/firebase";
 import { TicketsType } from "../types/Types";
 
 export function useTickets() {
+  const [loading, setLoading] = useState(true);
   const [tickets, setTickets] = useState<TicketsType>();
 
   async function getTickets() {
@@ -18,11 +19,12 @@ export function useTickets() {
       });
     }
     setTickets(ticketsArr)
+    setLoading(false);
   }
 
   useEffect(() => {
     getTickets();
   }, [])
 
-  return { tickets, setTickets };
+  return { tickets, setTickets, loading };
 }
