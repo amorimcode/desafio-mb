@@ -9,7 +9,11 @@ import { Container } from "react-bootstrap";
 import Masonry from "react-masonry-css";
 
 import { auth } from "../../services/firebase";
+
 import { useAuth } from "../../hooks/useAuth";
+import { useTickets } from "../../hooks/useTickets";
+
+import { TicketsType } from "../../types/Types";
 
 const breakpoints = {
   default: 3,
@@ -19,8 +23,8 @@ const breakpoints = {
 
 export function Tickets() {
   const { user, setUser } = useAuth();
+  const { tickets , setTickets } = useTickets();
 
-  console.log(user);
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -30,6 +34,7 @@ export function Tickets() {
         });
       }
     });
+    
   }, []);
 
   return (
@@ -39,9 +44,12 @@ export function Tickets() {
         <Container>
           <br />
           <Masonry breakpointCols={breakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
-            <Card title="Título" price="0,00">
-              Descrição
-            </Card>
+            {tickets?.map((ticket: TicketsType) => (
+              <Card
+                title={ticket.title}
+                price={ticket.price}
+              >{ticket.description}</Card>
+            ))}
           </Masonry>
         </Container>
       </TicketsPage>

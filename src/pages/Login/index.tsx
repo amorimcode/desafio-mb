@@ -11,9 +11,7 @@ import { LoginPage } from "./styles";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../services/firebase";
 
-type userType = {
-  uid: string;
-};
+import { userType } from '../../types/Types'
 
 export function Login() {
   const [email, setEmail] = useState("");
