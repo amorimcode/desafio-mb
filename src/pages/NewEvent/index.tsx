@@ -72,7 +72,6 @@ export function NewEvent() {
 
               alert('Evento criado com sucesso')
             }
-            setTicket();
           });
         }
       );
