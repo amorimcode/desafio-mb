@@ -1,4 +1,6 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 import { Header } from "../../components/Header";
 
@@ -7,16 +9,33 @@ import { NewEventPage, Title } from "./styles";
 import { Container, Form, Button, FloatingLabel, Row, Col } from "react-bootstrap";
 
 import { storage, db } from "../../services/firebase";
+import { auth } from "../../services/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 export function NewEvent() {
+  const { setUser } = useAuth();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [datetime, setDatetime] = useState("");
   const [price, setPrice] = useState(0);
   const [imageAsFile, setImageAsFile] = useState<File>();
-  const [imgUrl, setImgUrl] = useState("");
+  const [disable, setDisable] = useState(false)
+  const navigate = useNavigate();
+
+  async function setTicket(url: string) {
+    console.log(url)
+    const docRef = await addDoc(collection(db, "tickets"), {
+      title: title,
+      description: description,
+      datetime: datetime,
+      price: price,
+      imgUrl: url,
+    }).then(() => {
+      alert("Evento criado com sucesso");
+      navigate('/')
+    });
+  }
 
   const handleImageAsFile = (e: any) => {
     const image = e.target.files[0];
@@ -25,6 +44,7 @@ export function NewEvent() {
 
   async function handleCreateEvent(event: FormEvent) {
     event.preventDefault();
+    setDisable(true)
 
     if (imageAsFile) {
       const storageRef = ref(storage, "images/" + imageAsFile.name);
@@ -59,24 +79,25 @@ export function NewEvent() {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            console.log("File available at", downloadURL);
-            setImgUrl(downloadURL);
-            async function setTicket() {
-              const docRef = await addDoc(collection(db, "tickets"), {
-                title: title,
-                description: description,
-                datetime: datetime,
-                price: price,
-                imgUrl: imgUrl,
-              });
-
-              alert('Evento criado com sucesso')
-            }
+            const url = downloadURL
+            console.log(url)
+            setTicket(url);
           });
         }
       );
     }
   }
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser({
+          email: user.email,
+          uid: user.uid,
+        });
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -131,7 +152,7 @@ export function NewEvent() {
                   <Form.Control type="file" onChange={handleImageAsFile} />
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" disabled={disable}>
                   Criar evento
                 </Button>
               </Form>

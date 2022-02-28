@@ -24,7 +24,7 @@ const breakpoints = {
 
 export function Tickets() {
   const { setUser } = useAuth();
-  const { tickets, setTickets, loading } = useTickets();
+  const { tickets, loading } = useTickets();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
