@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { Header } from "../../components/Header";
-import { Card } from "../../components/Cards";
+import { Card } from "../../components/Card";
 import { Loading } from "../../components/Loading";
 
 import { TicketsPage } from "./styles";
