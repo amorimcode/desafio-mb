@@ -69,6 +69,8 @@ export function NewEvent() {
                 price: price,
                 imgUrl: imgUrl,
               });
+
+              alert('Evento criado com sucesso')
             }
             setTicket();
           });

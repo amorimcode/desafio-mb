@@ -48,10 +48,7 @@ export function Tickets() {
           ) : (
             <Masonry breakpointCols={breakpoints} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
               {tickets?.map((ticket: TicketsType) => (
-                <Card title={ticket.title}
-                  price={ticket.price}
-                  datetime={ticket.datetime}
-                imgUrl={ticket.imgUrl}>
+                <Card title={ticket.title} price={ticket.price} datetime={ticket.datetime} imgUrl={ticket.imgUrl}>
                   {ticket.description}
                 </Card>
               ))}
