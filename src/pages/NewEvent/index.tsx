@@ -6,7 +6,8 @@ import { NewEventPage, Title } from "./styles";
 
 import { Container, Form, Button, FloatingLabel, Row, Col } from "react-bootstrap";
 
-import { storage } from "../../services/firebase";
+import { storage, db } from "../../services/firebase";
+import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 export function NewEvent() {
@@ -14,16 +15,15 @@ export function NewEvent() {
   const [description, setDescription] = useState("");
   const [datetime, setDatetime] = useState("");
   const [price, setPrice] = useState(0);
-  const allInputs = { imgUrl: "" };
   const [imageAsFile, setImageAsFile] = useState<File>();
-  const [imageAsUrl, setImageAsUrl] = useState(allInputs);
+  const [imgUrl, setImgUrl] = useState("");
 
   const handleImageAsFile = (e: any) => {
     const image = e.target.files[0];
     setImageAsFile((imageFile) => image);
   };
 
-  function handleCreateEvent(event: FormEvent) {
+  async function handleCreateEvent(event: FormEvent) {
     event.preventDefault();
 
     if (imageAsFile) {
@@ -36,7 +36,6 @@ export function NewEvent() {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
           switch (snapshot.state) {
@@ -49,27 +48,29 @@ export function NewEvent() {
           }
         },
         (error) => {
-          // A full list of error codes is available at
-          // https://firebase.google.com/docs/storage/web/handle-errors
           switch (error.code) {
             case "storage/unauthorized":
-              // User doesn't have permission to access the object
               break;
             case "storage/canceled":
-              // User canceled the upload
               break;
-
-            // ...
-
             case "storage/unknown":
-              // Unknown error occurred, inspect error.serverResponse
               break;
           }
         },
         () => {
-          // Upload completed successfully, now we can get the download URL
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             console.log("File available at", downloadURL);
+            setImgUrl(downloadURL);
+            async function setTicket() {
+              const docRef = await addDoc(collection(db, "tickets"), {
+                title: title,
+                description: description,
+                datetime: datetime,
+                price: price,
+                imgUrl: imgUrl,
+              });
+            }
+            setTicket();
           });
         }
       );
