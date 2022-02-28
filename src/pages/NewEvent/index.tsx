@@ -18,22 +18,23 @@ export function NewEvent() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [datetime, setDatetime] = useState("");
+  const [location, setLocation] = useState("");
   const [price, setPrice] = useState(0);
   const [imageAsFile, setImageAsFile] = useState<File>();
-  const [disable, setDisable] = useState(false)
+  const [disable, setDisable] = useState(false);
   const navigate = useNavigate();
 
   async function setTicket(url: string) {
-    console.log(url)
-    const docRef = await addDoc(collection(db, "tickets"), {
+    await addDoc(collection(db, "tickets"), {
       title: title,
       description: description,
       datetime: datetime,
+      location: location,
       price: price,
       imgUrl: url,
     }).then(() => {
       alert("Evento criado com sucesso");
-      navigate('/')
+      navigate("/");
     });
   }
 
@@ -44,7 +45,7 @@ export function NewEvent() {
 
   async function handleCreateEvent(event: FormEvent) {
     event.preventDefault();
-    setDisable(true)
+    setDisable(true);
 
     if (imageAsFile) {
       const storageRef = ref(storage, "images/" + imageAsFile.name);
@@ -79,8 +80,8 @@ export function NewEvent() {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            const url = downloadURL
-            console.log(url)
+            const url = downloadURL;
+            console.log(url);
             setTicket(url);
           });
         }
@@ -109,45 +110,66 @@ export function NewEvent() {
             <Col>
               <Title>Criar evento</Title>
               <Form onSubmit={handleCreateEvent}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Group className="mb-3">
                   <Form.Label>Título</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Digite o título do evento"
                     maxLength={50}
                     onChange={(title) => setTitle(title.target.value)}
+                    required
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Group className="mb-3">
                   <Form.Label>Descrição</Form.Label>
-                  <FloatingLabel controlId="floatingTextarea2" label="Digite a descrição">
-                    <Form.Control as="textarea" style={{ height: "100px" }} onChange={(description) => setDescription(description.target.value)} />
+                  <FloatingLabel label="Digite a descrição">
+                    <Form.Control
+                      as="textarea"
+                      style={{ height: "100px" }}
+                      onChange={(description) => setDescription(description.target.value)}
+                      required
+                    />
                   </FloatingLabel>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Group className="mb-3">
                   <Form.Label>Data e hora</Form.Label>
                   <Form.Control
                     type="text"
                     className="date-input"
                     placeholder="dd/mm/yyyy"
                     onChange={(datetime) => setDatetime(datetime.target.value)}
+                    maxLength={16}
+                    required
                   />
                   <Form.Text className="text-muted">dd/mm/yyyy hh:mm</Form.Text>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Group className="mb-3">
                   <Form.Label>Preço</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="number"
                     placeholder="Digite o preço do ingresso"
                     maxLength={10}
                     onChange={(price) => setPrice(parseFloat(price.target.value))}
+                    step="0.01"
+                    required
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Group className="mb-3">
+                  <Form.Label>Localização</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Digite a localização do evento"
+                    maxLength={100}
+                    onChange={(location) => setLocation(location.target.value)}
+                    required
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
                   <Form.Label>Imagem</Form.Label>
                   <Form.Control type="file" onChange={handleImageAsFile} />
                 </Form.Group>

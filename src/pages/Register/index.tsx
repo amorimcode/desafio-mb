@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 import mbLogo from "../../assets/images/mb-logo.svg";
 
@@ -10,11 +10,12 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { RegisterPage } from "./styles";
 
 import { auth, db } from "../../services/firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, setDoc, doc } from "firebase/firestore";
 
 export function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   async function handleCreateAccount(event: FormEvent) {
     event.preventDefault();
@@ -22,18 +23,18 @@ export function Register() {
     try {
       const userData = await createUserWithEmailAndPassword(auth, email, password);
 
-      if (userData) {
-        const docRef = await addDoc(collection(db, "users"), {
-          uid: userData.user.uid,
-          email: email,
-        });
-      }
+      const docRef = await setDoc(doc(db, "users", `${userData.user.uid}`), {
+        uid: userData.user.uid,
+        email: email,
+      });
 
       alert("Usuário criado com sucesso");
+      navigate("/entrar");
     } catch (error: any) {
       if (error.code === "auth/email-already-in-use") {
         alert("Esse e-mail já está em uso por outro usuário");
       }
+      console.log(error.code);
     }
   }
 

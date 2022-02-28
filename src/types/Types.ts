@@ -5,6 +5,8 @@ export type userType = {
 };
 
 export type CardProps = {
+  ticketId: string,
+  location: string;
   title: string;
   children: string;
   datetime: string;

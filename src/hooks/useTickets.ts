@@ -15,16 +15,19 @@ export function useTickets() {
 
     if (ticketsSnapshot) {
       ticketsSnapshot.forEach((doc) => {
-        ticketsArr.push(doc.data())
+        const docData = doc.data();
+        docData.ticketId = doc.id;
+
+        ticketsArr.push(docData);
       });
     }
-    setTickets(ticketsArr)
+    setTickets(ticketsArr);
     setLoading(false);
   }
 
   useEffect(() => {
     getTickets();
-  }, [])
+  }, []);
 
   return { tickets, setTickets, loading };
 }
