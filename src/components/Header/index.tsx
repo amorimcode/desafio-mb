@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import { auth } from "../../services/firebase";
 import { useAuth } from "../../hooks/useAuth";
 
-
 export function Header() {
   const { user, setUser } = useAuth();
 
@@ -16,13 +15,15 @@ export function Header() {
     await auth.signOut().then(() => {
       alert("Usuário desconectado");
     });
-    setUser({})
+    setUser({});
   }
-  
+
   return (
     <HeaderWrapper>
       <div className="content">
-        <img src={mbLogo} alt="Logo Mb-labs" />
+        <Link to="/">
+          <img src={mbLogo} alt="Logo Mb-labs" />
+        </Link>
         <ul className="links">
           {user ? <li className="link-user">{user.email}</li> : ""}
           <li className="link-item">

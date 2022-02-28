@@ -12,7 +12,7 @@ export const HeaderWrapper = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    > img {
+    img {
       max-height: 50px;
     }
     > div {
