@@ -14,7 +14,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 export function NewEvent() {
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [datetime, setDatetime] = useState("");
@@ -105,7 +105,7 @@ export function NewEvent() {
       <NewEventPage>
         <br />
         <Container>
-          <Row>
+          {user.uid === undefined ? (<Title>Você precisa estar logado para criar um evento</Title>) : (          <Row>
             <Col>
               <Title>Criar evento</Title>
               <Form onSubmit={handleCreateEvent}>
@@ -178,7 +178,8 @@ export function NewEvent() {
                 </Button>
               </Form>
             </Col>
-          </Row>
+          </Row>)}
+
         </Container>
       </NewEventPage>
     </>

@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
 
 import { HeaderWrapper } from "../../components/Header/styles";
 
@@ -10,12 +11,14 @@ import { useAuth } from "../../hooks/useAuth";
 
 export function Header() {
   const { user, setUser } = useAuth();
+  const navigate = useNavigate();
 
   async function handleSignOut() {
     await auth.signOut().then(() => {
       alert("Usuário desconectado");
     });
     setUser({});
+    navigate('/entrar')
   }
 
   return (

@@ -20,8 +20,11 @@ export function useTickets() {
         docData.ticketId = doc.id;
 
         ticketsArr.push(docData);
+        console.log(docData)
+
       });
     }
+
 
     setTickets(ticketsArr);
     setLoading(false);

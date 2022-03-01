@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Header } from "../../components/Header";
 import { Card } from "../../components/Card";
@@ -23,8 +24,9 @@ const breakpoints = {
 };
 
 export function Tickets() {
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const { tickets, loading } = useTickets();
+  const navigate = useNavigate();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -35,6 +37,10 @@ export function Tickets() {
         });
       }
     });
+
+    if (user.uid === undefined) {
+      navigate("entrar");
+    }
   }, []);
 
   return (
