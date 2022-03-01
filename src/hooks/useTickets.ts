@@ -21,6 +21,7 @@ export function useTickets() {
         ticketsArr.push(docData);
       });
     }
+    
     setTickets(ticketsArr);
     setLoading(false);
   }

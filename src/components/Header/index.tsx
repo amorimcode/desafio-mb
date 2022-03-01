@@ -25,34 +25,48 @@ export function Header() {
           <img src={mbLogo} alt="Logo Mb-labs" />
         </Link>
         <ul className="links">
-          {user ? <li className="link-user">{user.email}</li> : ""}
-          <li className="link-item">
-            <div className="dropdown">
-              <i
-                className="fas fa-user dropdown-toggle"
-                aria-labelledby="dropdownMenuLink"
-                id="dropdownMenuLink"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"></i>
-              <ul className="dropdown-menu">
-                <li>
-                  <Link className="dropdown-item" to="/cadastro">
-                    Cadastro
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/entrar">
-                    Entrar
-                  </Link>
-                </li>
-                <li>
-                  <button onClick={handleSignOut} className="dropdown-item">
-                    Sair
-                  </button>
-                </li>
-              </ul>
-            </div>
+          <li>
+            <Link className="link-item" to="/criar-evento">
+              Criar evento
+            </Link>
           </li>
+          <li>
+            <Link className="link-item" to="/meus-ingressos">
+              Meus Ingressos
+            </Link>
+          </li>
+          <ul>
+            <li className="link-item">
+              <div className="dropdown">
+                <i
+                  className="fas fa-user dropdown-toggle"
+                  aria-labelledby="dropdownMenuLink"
+                  id="dropdownMenuLink"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"></i>
+                <ul className="dropdown-menu">
+                  <li>
+                    <div className="dropdown-item">{user ? <li className="link-user">{user.email}</li> : ""}</div>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/cadastro">
+                      Cadastro
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/entrar">
+                      Entrar
+                    </Link>
+                  </li>
+                  <li>
+                    <button onClick={handleSignOut} className="dropdown-item">
+                      Sair
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
         </ul>
       </div>
     </HeaderWrapper>

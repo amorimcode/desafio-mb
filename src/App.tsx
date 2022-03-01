@@ -6,6 +6,7 @@ import { Tickets } from "./pages/Tickets";
 import { Register } from "./pages/Register";
 import { Login } from "./pages/Login";
 import { NewEvent } from "./pages/NewEvent";
+import { MyTickets } from "./pages/MyTickets";
 
 import { AuthContextProvider } from "./contexts/AuthContext";
 
@@ -19,7 +20,7 @@ function App() {
           <Route path="/cadastro" element={<Register />} />
           <Route path="/entrar" element={<Login />} />
           <Route path="/criar-evento" element={<NewEvent />} />
-          <Route path="*" element={<Tickets />} />
+          <Route path="/meus-ingressos" element={<MyTickets />} />
         </Routes>
       </AuthContextProvider>
     </BrowserRouter>

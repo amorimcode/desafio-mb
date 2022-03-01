@@ -26,6 +26,7 @@ export const HeaderWrapper = styled.header`
       display: flex;
       flex-direction: row;
       .link-item {
+        list-style-type: none;
         margin-left: 15px;
         text-decoration: none;
         color: ${colors.secondary};
@@ -61,6 +62,13 @@ export const HeaderWrapper = styled.header`
         transform: scaleX(1);
         transform-origin: bottom left;
       }
+    }
+  }
+
+  ul { 
+    li {
+      text-decoration: none;
+      list-style-type: none;
     }
   }
 `;

@@ -13,3 +13,12 @@ export type CardProps = {
   price: string;
   imgUrl: string;
 };
+
+export type MyTicketsCardProps = {
+  location?: string;
+  title: string;
+  children: string;
+  datetime?: string;
+  price?: string;
+  imgUrl?: string;
+}
