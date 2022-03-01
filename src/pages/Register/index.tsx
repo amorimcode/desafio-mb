@@ -41,9 +41,7 @@ export function Register() {
   return (
     <RegisterPage>
       <aside>
-        <Link to="/">
-          <img src={mbLogo} alt="Ilustração simbolizando perguntas e respostas" />
-        </Link>
+        <img src={mbLogo} alt="Ilustração simbolizando perguntas e respostas" />
         <strong>MB ingressos</strong>
         <p>A plataforma de ingressos online</p>
       </aside>

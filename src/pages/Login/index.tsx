@@ -11,7 +11,7 @@ import { LoginPage } from "./styles";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../services/firebase";
 
-import { userType } from '../../types/Types'
+import { userType } from "../../types/Types";
 
 export function Login() {
   const [email, setEmail] = useState("");
@@ -48,9 +48,7 @@ export function Login() {
   return (
     <LoginPage>
       <aside>
-        <Link to="/">
-          <img src={mbLogo} alt="Ilustração simbolizando perguntas e respostas" />
-        </Link>
+        <img src={mbLogo} alt="Ilustração simbolizando perguntas e respostas" />
         <strong>MB ingressos</strong>
         <p>A plataforma de ingressos online</p>
       </aside>
