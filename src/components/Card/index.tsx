@@ -67,7 +67,7 @@ export function Card(props: CardProps) {
                 <LeftContent>
                   <Row>
                     <Col>
-                      <img className="card-img-top" src={props.imgUrl != "" ? props.imgUrl : defaultImg} />
+                      <img className="card-img-top" src={props.imgUrl !== "" ? props.imgUrl : defaultImg} alt="Imagem do ingresso" />
                       <h6>
                         <i className="far fa-comment"></i> Descrição:
                       </h6>
@@ -127,7 +127,7 @@ export function Card(props: CardProps) {
       </Modal>
 
       <CardWrapper className="card mb-4 shadow-sm">
-        <img className="card-img-top" src={props.imgUrl != "" ? props.imgUrl : defaultImg} />
+        <img className="card-img-top" src={props.imgUrl !== "" ? props.imgUrl : defaultImg} alt="Imagem do ingresso" />
         <div className="card-body">
           <h5 className="card-title text-center">{props.title}</h5>
           <p className="card-text">{props.children}</p>
