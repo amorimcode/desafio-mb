@@ -81,7 +81,6 @@ export function NewEvent() {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             const url = downloadURL;
-            console.log(url);
             setTicket(url);
           });
         }
@@ -171,7 +170,7 @@ export function NewEvent() {
 
                 <Form.Group className="mb-3">
                   <Form.Label>Imagem</Form.Label>
-                  <Form.Control type="file" onChange={handleImageAsFile} />
+                  <Form.Control type="file" onChange={handleImageAsFile} required/>
                 </Form.Group>
 
                 <Button variant="primary" type="submit" disabled={disable}>

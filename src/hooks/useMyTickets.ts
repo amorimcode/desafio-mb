@@ -17,11 +17,10 @@ export function useMyTickets() {
     const querySnapshot = await getDocs(collection(db, `users/${user.uid}/myTickets`));
     querySnapshot.forEach((doc) => {
       const docData = doc.data();
-      docData.map((item: {}) => {
-        console.log(item)
-      })
 
-      ticketsArr.push(docData);
+      console.log(docData)
+
+      ticketsArr.push(docData.ticketInfo);
     });
 
     setLoading(false);

@@ -5,7 +5,7 @@ import { CardWrapper, RightContent, LeftContent } from "./styles";
 
 import { CardProps } from "../../types/Types";
 
-import { doc, setDoc, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../../services/firebase";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -21,30 +21,36 @@ export function Card(props: CardProps) {
 
   const [name, setName] = useState("");
   const [cpf, setCpf] = useState(0);
-  const [password, setPassword] = useState("");
   const [disable, setDisable] = useState(false);
 
   async function handleBuyTicket(event: FormEvent) {
     event.preventDefault();
     setDisable(true);
 
-    await setDoc(doc(db, "users", user.uid, "myTickets", `${props.ticketId}`), {
-      ownerInfo: {
-        name: name,
-        cpf: cpf,
-      },
-      ticketInfo: {
-        title: `${props.title}`,
-        description: `${props.children}`,
-        price: `${props.price}`,
-        location: `${props.location}`,
-        datetime: `${props.datetime}`,
-        imgUrl: `${props.imgUrl}`,
-      },
-    }).then(() => {
-      alert("Ingresso comprado com sucesso");
-      setShowModal(false);
-    });
+    const ticketRef = doc(db, "users", user.uid, "myTickets", `${props.ticketId}`);
+    const docSnap = await getDoc(ticketRef);
+
+    if (docSnap.exists()) {
+      alert("Você já comprou esse ingresso");
+    } else {
+      await setDoc(doc(db, "users", user.uid, "myTickets", `${props.ticketId}`), {
+        ownerInfo: {
+          name: name,
+          cpf: cpf,
+        },
+        ticketInfo: {
+          title: `${props.title}`,
+          description: `${props.children}`,
+          price: `${props.price}`,
+          location: `${props.location}`,
+          datetime: `${props.datetime}`,
+          imgUrl: `${props.imgUrl}`,
+        },
+      }).then(() => {
+        alert("Ingresso comprado com sucesso");
+        setShowModal(false);
+      });
+    }
   }
 
   return (

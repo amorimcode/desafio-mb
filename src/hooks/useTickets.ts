@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs} from "firebase/firestore";
+
 import { db } from "../services/firebase";
 
 import { TicketsType } from "../types/Types";
@@ -21,7 +22,7 @@ export function useTickets() {
         ticketsArr.push(docData);
       });
     }
-    
+
     setTickets(ticketsArr);
     setLoading(false);
   }
