@@ -33,8 +33,10 @@ export function Register() {
     } catch (error: any) {
       if (error.code === "auth/email-already-in-use") {
         alert("Esse e-mail já está em uso por outro usuário");
+      } else {
+        console.log(error.code);
+        alert("Ocorreu um erro ao fazer o cadastro");
       }
-      console.log(error.code);
     }
   }
 

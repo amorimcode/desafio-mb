@@ -32,8 +32,6 @@ export function Login() {
 
       alert("Login feito com sucesso");
       navigate("/");
-
-      console.log("user: ", user);
     } catch (error: any) {
       console.log(error.code);
 
@@ -41,6 +39,10 @@ export function Login() {
         alert("Senha incorreta");
       } else if (error.code === "auth/too-many-requests") {
         alert("Muitas tentativas, tente novamente mais tarde.");
+      } else if (error.code === "auth/user-not-found") {
+        alert("Usuário não encontrado");
+      } else {
+        alert("Ocorreu um erro ao fazer o login");
       }
     }
   }
