@@ -10,7 +10,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { RegisterPage } from "./styles";
 
 import { auth, db } from "../../services/firebase";
-import { addDoc, collection, setDoc, doc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 
 export function Register() {
   const [email, setEmail] = useState("");

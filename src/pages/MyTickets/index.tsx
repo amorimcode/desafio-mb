@@ -2,8 +2,7 @@ import { useEffect } from "react";
 
 import { Header } from "../../components/Header";
 import { useAuth } from "../../hooks/useAuth";
-import { auth, db } from "../../services/firebase";
-import { doc, getDocs, collection } from "firebase/firestore";
+import { auth } from "../../services/firebase";
 
 import { Container } from "react-bootstrap";
 import Masonry from "react-masonry-css";
