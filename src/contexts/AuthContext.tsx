@@ -19,9 +19,5 @@ export const AuthContext = createContext({} as AuthContextType);
 export function AuthContextProvider(props: AuthContextProviderProps) {
   const [user, setUser] = useState({} as UserType);
 
-  return (
-      <AuthContext.Provider value={{ user, setUser }}>
-      {props.children}
-  </AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={{ user, setUser }}>{props.children}</AuthContext.Provider>;
 }

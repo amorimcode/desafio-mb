@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { collection, getDocs} from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 import { db } from "../services/firebase";
 
@@ -12,22 +12,24 @@ export function useTickets() {
 
   async function getTickets() {
     var ticketsArr: Array<Object> = [];
-    const ticketsSnapshot = await getDocs(collection(db, "tickets"));
 
-    if (ticketsSnapshot) {
-      ticketsSnapshot.forEach((doc) => {
-        const docData = doc.data();
-        docData.ticketId = doc.id;
+    try {
+      const ticketsSnapshot = await getDocs(collection(db, "tickets"));
+      if (ticketsSnapshot) {
+        ticketsSnapshot.forEach((doc) => {
+          const docData = doc.data();
+          docData.ticketId = doc.id;
 
-        ticketsArr.push(docData);
-        console.log(docData)
+          ticketsArr.push(docData);
+        });
+      }
 
-      });
+      setTickets(ticketsArr);
+    } catch (error: any) {
+      throw new Error(error);
+    } finally {
+      setLoading(false);
     }
-
-
-    setTickets(ticketsArr);
-    setLoading(false);
   }
 
   useEffect(() => {

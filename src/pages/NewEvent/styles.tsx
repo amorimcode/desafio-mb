@@ -5,6 +5,11 @@ import { colors } from '../../styles/globalVars'
 export const NewEventPage = styled.main`
   .date-input {
     margin-bottom: 5px;
+
+    h1 { 
+
+      
+    }
   }
 `
 export const Title = styled.h1`

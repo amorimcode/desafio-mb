@@ -38,7 +38,7 @@ export function Tickets() {
       }
     });
 
-    if (user.uid === undefined) {
+    if (!user.uid) {
       navigate("entrar");
     }
   }, []);

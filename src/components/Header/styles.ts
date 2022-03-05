@@ -39,7 +39,7 @@ export const HeaderWrapper = styled.header`
       }
       .link-user {
         text-decoration: none;
-        color: ${colors.secondary};
+        color: ${colors.primary};
         font-family: Inter;
         font-weight: 500;
         display: inline-block;
